@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: br.edu.ifrs.restinga.grupo_1.mural_api.MuralApiApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.544 s - in br.edu.ifrs.restinga.grupo_1.mural_api.MuralApiApplicationTests

@@ -8,9 +8,9 @@ ENV ADDITIONAL_OPTS=${ADDITIONAL_OPTS}
 
 WORKDIR ./
 
-COPY target/mural_api*.war mural_api.war
+COPY target/*.war mural_api.war
 
-SHELL ["/bin/sh", "-c"]
+SHELL ["/bin/sh","-c"]
 
 EXPOSE 5005
 EXPOSE 8080
