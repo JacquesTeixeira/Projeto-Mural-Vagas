@@ -10,7 +10,7 @@ git clone https://github.com/JacquesTeixeira/Projeto-Mural-Vagas.git
 cd /Projeto-Mural-Vagas/mural_api/
 
 - execute na pasta no mesmo nível do arquivo docker-compose.yml
-compose up --build --force-recreate
+docker-compose up --build --force-recreate
 
 ####################### GIT FLOW ###################################
 
