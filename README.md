@@ -1,6 +1,6 @@
 # Projeto-Mural-Vagas
 
-###################### CLONANDO REPO #############################
+###################### CLONANDO REPO e EXECUTANDO PROJ #############################
 Projeto para aula de Desenvolvimento de Sistemas II
 
 - Com Docker, docker-compose e Git instalado na máquina, faça o clone do projeto.
