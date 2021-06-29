@@ -20,7 +20,7 @@ public class AdministradorService {
         return administradorRepository.findAll();
     }
 
-    public Page<Administrador> buscarPaninado(Integer pagina, Integer linhasPorPagina, String ordem, String direcao) {
+    public Page<Administrador> buscarPaginado(Integer pagina, Integer linhasPorPagina, String ordem, String direcao) {
         PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordem);
         return administradorRepository.findAll(pageRequest);
     }
