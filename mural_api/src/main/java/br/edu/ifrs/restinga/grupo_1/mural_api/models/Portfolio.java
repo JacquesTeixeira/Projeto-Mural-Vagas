@@ -1,23 +1,33 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.models;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
-@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Portfolio {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String escolaridade;
-//    private Set<String> habilidades = new HashSet<>();
-//    private Set<String> conhecimentos = new HashSet<>();
-    //private Set<String> areasDeInteresse = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable
+    private Set<String> habilidades = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable
+    private Set<String> conhecimentos = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable
+    private Set<String> areasDeInteresse = new HashSet<>();
 }
 

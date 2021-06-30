@@ -2,10 +2,7 @@ package br.edu.ifrs.restinga.grupo_1.mural_api.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -21,4 +18,7 @@ public class Vaga {
     private String diferenciais;
     private String salario;
     private String beneficios;
+
+    @ManyToOne
+    private Administrador administrador;
 }

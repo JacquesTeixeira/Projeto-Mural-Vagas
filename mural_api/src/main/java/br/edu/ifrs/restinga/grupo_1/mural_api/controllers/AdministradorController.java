@@ -31,7 +31,7 @@ public class AdministradorController {
             @RequestParam(value="linhasPorPagina", defaultValue="24") Integer linhasPorPagina,
             @RequestParam(value="ordem", defaultValue="nome") String ordem,
             @RequestParam(value="direcao", defaultValue="ASC") String direcao) {
-        Page<Administrador> administradores = administradorService.buscarPaninado(pagina, linhasPorPagina, ordem, direcao);
+        Page<Administrador> administradores = administradorService.buscarPaginado(pagina, linhasPorPagina, ordem, direcao);
         return ResponseEntity.ok().body(administradores);
     }
 
