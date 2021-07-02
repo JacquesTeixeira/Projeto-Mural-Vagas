@@ -1,9 +1,8 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.controllers.exceptions;
 
-
-import br.edu.ifrs.restinga.dev1.apcavalheiro.servidor.services.exception.DataIntegrityException;
-import br.edu.ifrs.restinga.dev1.apcavalheiro.servidor.services.exception.InvalidRequest;
-import br.edu.ifrs.restinga.dev1.apcavalheiro.servidor.services.exception.ObjectNotFound;
+import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
+import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.InvalidRequest;
+import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
