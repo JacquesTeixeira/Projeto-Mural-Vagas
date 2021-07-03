@@ -20,8 +20,7 @@ public class AdministradorController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Administrador>> all() {
-        List<Administrador> administradores = this.administradorService.buscarTodos();
-        return ResponseEntity.ok().body(administradores);
+        return ResponseEntity.ok().body(this.administradorService.buscarTodos());
     }
 
     @RequestMapping(value = "/paginado", method = RequestMethod.GET)

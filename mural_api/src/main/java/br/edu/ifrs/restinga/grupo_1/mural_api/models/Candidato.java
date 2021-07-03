@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 @Entity
 @Data
 public class Candidato extends Usuario{
@@ -18,6 +17,7 @@ public class Candidato extends Usuario{
     @Transient
     @JsonProperty("tipo")
     private final String tipo = "candidato";
+
     private String cpf;
 
     @ManyToOne
