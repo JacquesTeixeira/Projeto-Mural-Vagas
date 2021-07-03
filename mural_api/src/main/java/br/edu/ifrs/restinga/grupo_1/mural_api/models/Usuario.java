@@ -17,7 +17,6 @@ import javax.persistence.*;
 @JsonSubTypes({
         @JsonSubTypes.Type(name="administrador", value=Administrador.class),
         @JsonSubTypes.Type(name="candidato", value=Candidato.class)})
-
 public abstract class Usuario {
 
     @Transient
