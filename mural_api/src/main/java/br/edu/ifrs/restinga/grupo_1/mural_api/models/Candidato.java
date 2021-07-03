@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -20,12 +21,15 @@ public class Candidato extends Usuario{
     private String cpf;
 
     @ManyToOne
+    @JsonIgnore
     private Portfolio portfolio;
 
     @ManyToOne
+    @JsonIgnore
     private Endereco endereco;
 
     @ManyToMany
+    @JsonIgnore
     private List<Vaga> vagas = new ArrayList<>();
 
     @ElementCollection
