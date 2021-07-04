@@ -1,8 +1,10 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.services;
 
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Candidato;
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.Portfolio;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.CandidatoRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.EnderecoRepository;
+import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.PortfolioRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class CandidatoService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private PortfolioRepository portfolioRepository;
 
     public List<Candidato> buscarTodos() {
         List<Candidato> candidatos = this.candidatoRepository.findAll();
@@ -86,5 +91,44 @@ public class CandidatoService {
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possível excluir candidato");
         }
+    }
+
+    public Portfolio buscarPortfolioPorId(Long id) {
+        try {
+            return this.portfolioRepository.findById(id).orElseThrow(() -> new ObjectNotFound("Não existe portfólio com id informado"));
+        } catch (NoSuchElementException e) {
+            throw new ObjectNotFound("Não existe portfólio com id informado");
+        }
+    }
+
+    @Transactional
+    public Portfolio cadastrarPortfolio(Portfolio portfolio, Long candidatoId){
+        Candidato candidatoDb = this.buscarPorId(candidatoId);
+        try {
+            Portfolio portfolioSalvo = this.portfolioRepository.save(portfolio);
+            candidatoDb.setPortfolio(portfolioSalvo);
+            this.candidatoRepository.save(candidatoDb);
+        }catch (Exception e) {
+            throw new DataIntegrityException("Não foi possível cadastar portfólio, verifique os dados informados!");
+        }
+        return portfolio;
+    }
+
+    @Transactional
+    public Portfolio editarPortfolio(Portfolio portfolio, Long id,Long candidatoId){
+        Candidato candidatoDb = this.buscarPorId(candidatoId);
+        try {
+            Portfolio portfolioSalvo = this.portfolioRepository.save(portfolio);
+            candidatoDb.setPortfolio(portfolioSalvo);
+            this.candidatoRepository.save(candidatoDb);
+        }catch (Exception e) {
+            throw new DataIntegrityException("Não foi possível cadastar portfólio, verifique os dados informados!");
+        }
+        return portfolio;
+    }
+
+    public Portfolio buscarPortfolioCandidato(Long candidatoId){
+        Candidato candidato = this.buscarPorId(candidatoId);
+        return candidato.getPortfolio();
     }
 }
