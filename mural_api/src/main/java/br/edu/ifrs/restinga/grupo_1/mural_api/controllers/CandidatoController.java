@@ -1,6 +1,7 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.controllers;
 
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Candidato;
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.Portfolio;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.CandidatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -57,5 +58,25 @@ public class CandidatoController {
     public ResponseEntity<Void> destroy(@PathVariable Long id) {
         this.candidatoService.excluir(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{candidatoId}/portfolios", method = RequestMethod.POST)
+    public ResponseEntity<Void> createPortfolio(@RequestBody Portfolio portfolio, @PathVariable Long candidatoId) {
+        Portfolio obj = this.candidatoService.cadastrarPortfolio(portfolio, candidatoId);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{candidatoId}/portfolios/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> updatePortfolio(@RequestBody Portfolio portfolio,
+                                                @PathVariable Long id, @PathVariable Long candidatoId) {
+        this.candidatoService.editarPortfolio(portfolio, id, candidatoId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{candidatoId}/portfolios", method = RequestMethod.GET)
+    public ResponseEntity<Portfolio> findPortfolio(@PathVariable Long candidatoId) {
+        return ResponseEntity.ok().body(this.candidatoService.buscarPortfolioCandidato(candidatoId));
     }
 }
