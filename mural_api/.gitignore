@@ -1,5 +1,9 @@
 HELP.md
 !target/*
+.settings/
+.loadpath
+.project
+.classpath
 
 ### IntelliJ IDEA ###
 .idea
