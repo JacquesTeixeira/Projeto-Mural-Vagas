@@ -126,4 +126,9 @@ public class CandidatoService {
         }
         return portfolio;
     }
+
+    public Portfolio buscarPortfolioCandidato(Long candidatoId){
+        Candidato candidato = this.buscarPorId(candidatoId);
+        return candidato.getPortfolio();
+    }
 }

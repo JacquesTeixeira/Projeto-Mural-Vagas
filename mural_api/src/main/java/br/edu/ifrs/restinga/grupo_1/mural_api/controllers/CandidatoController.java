@@ -60,8 +60,8 @@ public class CandidatoController {
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(value = "/{candidatoId}/portfolios" ,method = RequestMethod.POST)
-    public ResponseEntity<Void> createPortfolio(@RequestBody Portfolio portfolio,  @PathVariable Long candidatoId) {
+    @RequestMapping(value = "/{candidatoId}/portfolios", method = RequestMethod.POST)
+    public ResponseEntity<Void> createPortfolio(@RequestBody Portfolio portfolio, @PathVariable Long candidatoId) {
         Portfolio obj = this.candidatoService.cadastrarPortfolio(portfolio, candidatoId);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -71,7 +71,12 @@ public class CandidatoController {
     @RequestMapping(value = "/{candidatoId}/portfolios/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> updatePortfolio(@RequestBody Portfolio portfolio,
                                                 @PathVariable Long id, @PathVariable Long candidatoId) {
-        this.candidatoService.editarPortfolio(portfolio, id,candidatoId);
+        this.candidatoService.editarPortfolio(portfolio, id, candidatoId);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{candidatoId}/portfolios", method = RequestMethod.GET)
+    public ResponseEntity<Portfolio> findPortfolio(@PathVariable Long candidatoId) {
+        return ResponseEntity.ok().body(this.candidatoService.buscarPortfolioCandidato(candidatoId));
     }
 }

@@ -21,6 +21,7 @@ public class Candidato extends Usuario {
     private String cpf;
 
     @ManyToOne
+    @JsonIgnore
     private Portfolio portfolio;
 
     @ManyToOne
