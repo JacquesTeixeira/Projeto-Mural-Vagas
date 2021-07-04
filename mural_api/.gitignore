@@ -10,3 +10,5 @@ storage
 
 ### VS Code ###
 .vscode/
+/bin/
+/target/
