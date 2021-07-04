@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -78,5 +80,12 @@ public class CandidatoController {
     @RequestMapping(value = "/{candidatoId}/portfolios", method = RequestMethod.GET)
     public ResponseEntity<Portfolio> findPortfolio(@PathVariable Long candidatoId) {
         return ResponseEntity.ok().body(this.candidatoService.buscarPortfolioCandidato(candidatoId));
+    }
+
+    @RequestMapping(value="/{candidatoId}/imageUpload", method = RequestMethod.PUT)
+    public ResponseEntity<Void> imageUpload(@RequestParam("imagem") MultipartFile multipartFile,
+                                            @RequestParam Long candidatoId) throws IOException {
+        this.candidatoService.uploadImagemCandidato(multipartFile, candidatoId);
+        return ResponseEntity.noContent().build();
     }
 }
