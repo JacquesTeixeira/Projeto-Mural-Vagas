@@ -6,7 +6,7 @@ HELP.md
 *.iws
 *.iml
 *.ipr
-
+storage
 
 ### VS Code ###
 .vscode/

@@ -6,7 +6,9 @@ import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.CandidatoRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.EnderecoRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.PortfolioRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
+import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.InvalidRequest;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
+import br.edu.ifrs.restinga.grupo_1.mural_api.utils.ImagemUploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -14,7 +16,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -102,33 +108,46 @@ public class CandidatoService {
     }
 
     @Transactional
-    public Portfolio cadastrarPortfolio(Portfolio portfolio, Long candidatoId){
+    public Portfolio cadastrarPortfolio(Portfolio portfolio, Long candidatoId) {
         Candidato candidatoDb = this.buscarPorId(candidatoId);
         try {
             Portfolio portfolioSalvo = this.portfolioRepository.save(portfolio);
             candidatoDb.setPortfolio(portfolioSalvo);
             this.candidatoRepository.save(candidatoDb);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível cadastar portfólio, verifique os dados informados!");
         }
         return portfolio;
     }
 
     @Transactional
-    public Portfolio editarPortfolio(Portfolio portfolio, Long id,Long candidatoId){
+    public Portfolio editarPortfolio(Portfolio portfolio, Long id, Long candidatoId) {
         Candidato candidatoDb = this.buscarPorId(candidatoId);
         try {
             Portfolio portfolioSalvo = this.portfolioRepository.save(portfolio);
             candidatoDb.setPortfolio(portfolioSalvo);
             this.candidatoRepository.save(candidatoDb);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível cadastar portfólio, verifique os dados informados!");
         }
         return portfolio;
     }
 
-    public Portfolio buscarPortfolioCandidato(Long candidatoId){
+    public Portfolio buscarPortfolioCandidato(Long candidatoId) {
         Candidato candidato = this.buscarPorId(candidatoId);
         return candidato.getPortfolio();
+    }
+
+    public String uploadImagemCandidato(MultipartFile multipartFile, Long candidatoId) throws IOException {
+        Candidato candidatoDb = buscarPorId(candidatoId);
+        String nomeArquivo = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        if(!nomeArquivo.contains(".jpg")){
+            throw new InvalidRequest("Somente são aceitos arquivos com extensão .jpg!");
+        }
+        candidatoDb.setImagem(nomeArquivo);
+        this.candidatoRepository.save(candidatoDb);
+        String diretorioUpload = "storage/";
+        ImagemUploadUtil.salvarImagem(diretorioUpload, nomeArquivo, multipartFile);
+        return candidatoDb.getImagem();
     }
 }
