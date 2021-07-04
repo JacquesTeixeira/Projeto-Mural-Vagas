@@ -11,10 +11,10 @@ import javax.persistence.*;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@JsonTypeInfo(use=JsonTypeInfo.Id.NAME,
-        include=JsonTypeInfo.As.EXISTING_PROPERTY, property="tipo")
-@JsonTypeName("usuario")
-@JsonSubTypes({
+        @JsonTypeInfo(use=JsonTypeInfo.Id.NAME,
+                include=JsonTypeInfo.As.EXISTING_PROPERTY, property="tipo")
+        @JsonTypeName("usuario")
+        @JsonSubTypes({
         @JsonSubTypes.Type(name="administrador", value=Administrador.class),
         @JsonSubTypes.Type(name="candidato", value=Candidato.class)})
 public abstract class Usuario {

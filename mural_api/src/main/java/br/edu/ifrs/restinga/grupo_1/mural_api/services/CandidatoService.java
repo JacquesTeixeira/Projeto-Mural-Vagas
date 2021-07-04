@@ -1,8 +1,8 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.services;
 
-import br.edu.ifrs.restinga.grupo_1.mural_api.models.Administrador;
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Candidato;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.CandidatoRepository;
+import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.EnderecoRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,6 +21,9 @@ public class CandidatoService {
 
     @Autowired
     private CandidatoRepository candidatoRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     public List<Candidato> buscarTodos() {
         List<Candidato> candidatos = this.candidatoRepository.findAll();
@@ -46,14 +50,18 @@ public class CandidatoService {
         }
     }
 
+    @Transactional
     public Candidato cadastrar(Candidato candidato) {
         try {
-            return this.candidatoRepository.save(candidato);
+            candidato = this.candidatoRepository.save(candidato);
+            this.enderecoRepository.save(candidato.getEndereco());
         } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível cadastrar, verifique os dados informados!");
         }
+        return candidato;
     }
 
+    @Transactional
     public Candidato editar(Candidato candidato, Long id) {
         try {
             Candidato candidatoDb = this.buscarPorId(id);
@@ -62,7 +70,10 @@ public class CandidatoService {
             candidatoDb.setEmail(candidato.getEmail());
             candidatoDb.setCpf(candidato.getCpf());
             candidatoDb.setTelefones(candidato.getTelefones());
-            return this.candidatoRepository.save(candidatoDb);
+            candidatoDb.setEndereco(candidato.getEndereco());
+            this.candidatoRepository.save(candidatoDb);
+            this.enderecoRepository.save(candidatoDb.getEndereco());
+            return candidatoDb;
         } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível atualizar, verifique os dados informados!");
         }
