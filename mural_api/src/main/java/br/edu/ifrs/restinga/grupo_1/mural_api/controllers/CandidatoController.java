@@ -60,8 +60,6 @@ public class CandidatoController {
         return ResponseEntity.noContent().build();
     }
 
-    ////////PORTFOLIO TODO
-
     @RequestMapping(value = "/{candidatoId}/portfolios" ,method = RequestMethod.POST)
     public ResponseEntity<Void> createPortfolio(@RequestBody Portfolio portfolio,  @PathVariable Long candidatoId) {
         Portfolio obj = this.candidatoService.cadastrarPortfolio(portfolio, candidatoId);

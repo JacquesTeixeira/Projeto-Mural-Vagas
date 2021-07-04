@@ -92,7 +92,6 @@ public class CandidatoService {
             throw new DataIntegrityException("Não é possível excluir candidato");
         }
     }
-    /////////////////////////////////////////PORTFOLIO TODO
 
     public Portfolio buscarPortfolioPorId(Long id) {
         try {
