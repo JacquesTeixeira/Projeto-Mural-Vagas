@@ -20,6 +20,8 @@ public class Candidato extends Usuario {
 
     private String cpf;
 
+    private String imagem;
+
     @ManyToOne
     @JsonIgnore
     private Portfolio portfolio;
