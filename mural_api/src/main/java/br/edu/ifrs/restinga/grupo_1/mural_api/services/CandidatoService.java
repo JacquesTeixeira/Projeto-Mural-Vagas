@@ -2,9 +2,11 @@ package br.edu.ifrs.restinga.grupo_1.mural_api.services;
 
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Candidato;
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Portfolio;
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.CandidatoRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.EnderecoRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.PortfolioRepository;
+import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.VagaRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.InvalidRequest;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
@@ -20,7 +22,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -35,6 +36,9 @@ public class CandidatoService {
 
     @Autowired
     private PortfolioRepository portfolioRepository;
+
+    @Autowired
+    private VagaRepository vagaRepository;
 
     public List<Candidato> buscarTodos() {
         List<Candidato> candidatos = this.candidatoRepository.findAll();
@@ -141,7 +145,7 @@ public class CandidatoService {
     public String uploadImagemCandidato(MultipartFile multipartFile, Long candidatoId) throws IOException {
         Candidato candidatoDb = buscarPorId(candidatoId);
         String nomeArquivo = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        if(!nomeArquivo.contains(".jpg")){
+        if (!nomeArquivo.contains(".jpg")) {
             throw new InvalidRequest("Somente são aceitos arquivos com extensão .jpg!");
         }
         candidatoDb.setImagem(nomeArquivo);
@@ -149,5 +153,25 @@ public class CandidatoService {
         String diretorioUpload = "storage/";
         ImagemUploadUtil.salvarImagem(diretorioUpload, nomeArquivo, multipartFile);
         return candidatoDb.getImagem();
+    }
+
+    /* favoritar vaga */
+
+    public Candidato favoritar(Long candidatoId, Long vagaId) {
+        Candidato candidatoDb = this.buscarPorId(candidatoId);
+        Vaga vagaDb = this.vagaRepository.findById(vagaId).orElseThrow(
+                () -> new ObjectNotFound("Não existe vaga com id informado"));
+        candidatoDb.getVagas().add(vagaDb);
+        this.candidatoRepository.save(candidatoDb);
+        return candidatoDb;
+    }
+
+    public Candidato removerFavorito(Long candidatoId, Long vagaId) {
+        Candidato candidatoDb = this.buscarPorId(candidatoId);
+        Vaga vagaDb = this.vagaRepository.findById(vagaId).orElseThrow(
+                () -> new ObjectNotFound("Não existe vaga com id informado"));
+        candidatoDb.getVagas().remove(vagaDb);
+        this.candidatoRepository.save(candidatoDb);
+        return candidatoDb;
     }
 }

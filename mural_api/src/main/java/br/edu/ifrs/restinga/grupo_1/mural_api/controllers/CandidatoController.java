@@ -5,6 +5,7 @@ import br.edu.ifrs.restinga.grupo_1.mural_api.models.Portfolio;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.CandidatoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -82,10 +83,22 @@ public class CandidatoController {
         return ResponseEntity.ok().body(this.candidatoService.buscarPortfolioCandidato(candidatoId));
     }
 
-    @RequestMapping(value="/{candidatoId}/imageUpload", method = RequestMethod.PUT)
+    @RequestMapping(value = "/{candidatoId}/imageUpload", method = RequestMethod.POST)
     public ResponseEntity<Void> imageUpload(@RequestParam("imagem") MultipartFile multipartFile,
                                             @RequestParam Long candidatoId) throws IOException {
         this.candidatoService.uploadImagemCandidato(multipartFile, candidatoId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @RequestMapping(value = "/{candidatoId}/favoritar/{vagaId}", method = RequestMethod.POST)
+    public ResponseEntity<Void> favorite(@PathVariable Long candidatoId, @PathVariable Long vagaId) {
+        this.candidatoService.favoritar(candidatoId, vagaId);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @RequestMapping(value = "/{candidatoId}/remover/{vagaId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> destroyFavorite(@PathVariable Long candidatoId, @PathVariable Long vagaId) {
+        this.candidatoService.removerFavorito(candidatoId, vagaId);
         return ResponseEntity.noContent().build();
     }
 }
