@@ -12,7 +12,7 @@ import java.util.Set;
 
 @Entity
 @Data
-public class Candidato extends Usuario{
+public class Candidato extends Usuario {
 
     @Transient
     @JsonProperty("tipo")
@@ -21,11 +21,9 @@ public class Candidato extends Usuario{
     private String cpf;
 
     @ManyToOne
-    @JsonIgnore
     private Portfolio portfolio;
 
     @ManyToOne
-    @JsonIgnore
     private Endereco endereco;
 
     @ManyToMany
