@@ -4,13 +4,16 @@ HELP.md
 .loadpath
 .project
 .classpath
-
+### ###
+*.properties
+### ###
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
 storage
+
 
 ### VS Code ###
 .vscode/
