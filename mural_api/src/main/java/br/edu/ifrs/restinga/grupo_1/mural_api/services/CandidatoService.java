@@ -40,6 +40,9 @@ public class CandidatoService {
     @Autowired
     private VagaRepository vagaRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     public List<Candidato> buscarTodos() {
         List<Candidato> candidatos = this.candidatoRepository.findAll();
         if (candidatos.isEmpty()) {
@@ -70,6 +73,7 @@ public class CandidatoService {
         try {
             candidato = this.candidatoRepository.save(candidato);
             this.enderecoRepository.save(candidato.getEndereco());
+            this.emailService.confirmacaoCadastro(candidato);
         } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível cadastrar, verifique os dados informados!");
         }
@@ -154,8 +158,6 @@ public class CandidatoService {
         ImagemUploadUtil.salvarImagem(diretorioUpload, nomeArquivo, multipartFile);
         return candidatoDb.getImagem();
     }
-
-    /* favoritar vaga */
 
     public Candidato favoritar(Long candidatoId, Long vagaId) {
         Candidato candidatoDb = this.buscarPorId(candidatoId);

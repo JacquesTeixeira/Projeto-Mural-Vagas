@@ -11,6 +11,9 @@ public class Vaga {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+    private String titulo;
+    private String descricao;
+    private String area;
     private String empresa;
     private String enderecoEmpresa;
     private String requisitos;
