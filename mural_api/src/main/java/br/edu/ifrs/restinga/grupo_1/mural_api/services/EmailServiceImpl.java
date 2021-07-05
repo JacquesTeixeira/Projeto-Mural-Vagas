@@ -1,0 +1,25 @@
+package br.edu.ifrs.restinga.grupo_1.mural_api.services;
+
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.Candidato;
+import org.springframework.mail.SimpleMailMessage;
+
+import java.util.Date;
+
+public abstract class EmailServiceImpl implements EmailServiceInterface {
+
+    @Override
+    public void confirmacaoCadastro(Candidato obj) {
+        SimpleMailMessage sm = this.prepareConfirmacaoCadastro(obj);
+        enviarEmail(sm);
+    }
+
+    protected SimpleMailMessage prepareConfirmacaoCadastro(Candidato obj) {
+        SimpleMailMessage sm = new SimpleMailMessage();
+        sm.setTo(obj.getEmail());
+        sm.setSubject("Olá, " + obj.getNome() + " cadastro realizado comsucesso!");
+        sm.setSentDate(new Date(System.currentTimeMillis()));
+        sm.setText("Cadastre agora seu portfólio" +
+                "para receber informações sobre as vagas que melhor se enquadram com seu perfil!");
+        return sm;
+    }
+}
