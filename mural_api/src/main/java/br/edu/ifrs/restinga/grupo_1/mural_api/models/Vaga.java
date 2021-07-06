@@ -24,4 +24,5 @@ public class Vaga {
 
     @ManyToOne
     private Administrador administrador;
+
 }
