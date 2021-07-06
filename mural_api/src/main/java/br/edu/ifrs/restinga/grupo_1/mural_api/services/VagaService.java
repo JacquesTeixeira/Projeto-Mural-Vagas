@@ -30,6 +30,7 @@ public class VagaService {
 			throw new ObjectNotFound("Base de dados vazia!");
 		}
 		return vagas;
+
 	}
 
 
@@ -39,6 +40,7 @@ public class VagaService {
 		} catch (NoSuchElementException e) {
 			throw new ObjectNotFound("Não existe vaga com o id informado!");
 		}
+
 	}
 
 	@Transactional
@@ -49,6 +51,7 @@ public class VagaService {
 			throw new DataIntegrityException("Não foi possível cadastrar, verifique os dados informados!");
 		}
 		return vaga;
+
 	}
 
 	@Transactional
@@ -68,6 +71,7 @@ public class VagaService {
 		} catch (Exception e) {
 			throw new DataIntegrityException("Não foi possível atualizar, verifique os dados informados!");
 		}
+
 	}
 
 	public void excluir(Long id) {
@@ -77,6 +81,7 @@ public class VagaService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir a vaga!");
 		}
+
 	}
 
 	public Page<Vaga> buscarPaginado(Integer pagina, Integer linhasPorPagina, String ordem, String direcao) {
@@ -86,6 +91,7 @@ public class VagaService {
 			throw new ObjectNotFound("Base de dados vazia!");
 		}
 		return vagas;
+
 	}
 
 
