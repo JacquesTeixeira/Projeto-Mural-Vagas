@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -26,8 +28,7 @@ public class Portfolio {
     @CollectionTable
     private Set<String> conhecimentos = new HashSet<>();
 
-    @ElementCollection
-    @CollectionTable
-    private Set<String> areasDeInteresse = new HashSet<>();
+    @OneToMany
+    private List<AreaDaVaga> areasDeInteresse = new ArrayList<>();
 }
 

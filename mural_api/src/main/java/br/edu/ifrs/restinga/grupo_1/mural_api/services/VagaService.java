@@ -60,7 +60,7 @@ public class VagaService {
 			Vaga vagaDb = this.buscarPorId(id);
 			vagaDb.setTitulo(vaga.getTitulo());
 			vagaDb.setDescricao(vaga.getDescricao());
-			vagaDb.setArea(vaga.getArea());
+			//vagaDb.setArea(vaga.getArea()); TODO alterar houve mudanda na entidade
 			vagaDb.setEmpresa(vaga.getEmpresa());
 			vagaDb.setRequisitos(vaga.getRequisitos());
 			vagaDb.setDesejavel(vaga.getDesejavel());

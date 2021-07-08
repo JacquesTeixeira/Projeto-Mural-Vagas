@@ -13,7 +13,6 @@ public class Vaga {
     private Long id;
     private String titulo;
     private String descricao;
-    private String area;
     private String empresa;
     private String enderecoEmpresa;
     private String requisitos;
@@ -21,6 +20,9 @@ public class Vaga {
     private String diferenciais;
     private String salario;
     private String beneficios;
+
+    @ManyToOne
+    private AreaDaVaga areaDaVaga;
 
     @ManyToOne
     private Administrador administrador;
