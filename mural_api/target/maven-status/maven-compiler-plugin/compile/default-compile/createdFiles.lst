@@ -1,9 +1,7 @@
-br\edu\ifrs\restinga\grupo_1\mural_api\services\AdministradorService.class
-br\edu\ifrs\restinga\grupo_1\mural_api\ServletInitializer.class
 br\edu\ifrs\restinga\grupo_1\mural_api\controllers\AdministradorController.class
-br\edu\ifrs\restinga\grupo_1\mural_api\controllers\StatusController.class
-br\edu\ifrs\restinga\grupo_1\mural_api\models\Administrador.class
-br\edu\ifrs\restinga\grupo_1\mural_api\controllers\IndexController.class
-br\edu\ifrs\restinga\grupo_1\mural_api\repositories\AdministradorRepository.class
 br\edu\ifrs\restinga\grupo_1\mural_api\MuralApiApplication.class
-br\edu\ifrs\restinga\grupo_1\mural_api\utils\InsertData.class
+br\edu\ifrs\restinga\grupo_1\mural_api\ServletInitializer.class
+br\edu\ifrs\restinga\grupo_1\mural_api\models\Administrador.class
+br\edu\ifrs\restinga\grupo_1\mural_api\services\AdministradorService.class
+br\edu\ifrs\restinga\grupo_1\mural_api\controllers\StatusController.class
+br\edu\ifrs\restinga\grupo_1\mural_api\repositories\AdministradorRepository.class
