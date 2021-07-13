@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.AreaDaVaga;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.VagaService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -66,6 +67,24 @@ public class VagaController {
 
     }
 	
-	
+    @RequestMapping(value = "/{vagaId}/areadasvagas", method = RequestMethod.POST)
+    public ResponseEntity<Void> createAreaDaVaga(@RequestBody AreaDaVaga areadavaga, @PathVariable Long vagaId) {
+        AreaDaVaga obj = this.vagaService.cadastrarAreaDaVaga(areadavaga, vagaId);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
 
+    @RequestMapping(value = "/{vagaId}/areadasvagas/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> updateAreaDaVaga(@RequestBody AreaDaVaga areadavaga,
+                @PathVariable Long id, @PathVariable Long vagaId) {
+        this.vagaService.editarAreaDaVaga(areadavaga, id, vagaId);
+        return ResponseEntity.noContent().build();
+    }
+    
+    @RequestMapping(value = "/{vagaId}/areadasvagas", method = RequestMethod.GET)
+    public ResponseEntity<AreaDaVaga> findAreaDaVaga(@PathVariable Long vagaId) {
+        return ResponseEntity.ok().body(this.vagaService.buscarAreaDaVaga_Vaga(vagaId));
+    }
+    
 }

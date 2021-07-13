@@ -119,4 +119,23 @@ public class VagaService {
         }
         return areaDaVaga;
     }
+	
+	@Transactional
+    public AreaDaVaga editarAreaDaVaga(AreaDaVaga areaDaVaga, Long id, Long vagaId) {
+        Vaga vagaDb = this.buscarPorId(vagaId);
+        try {
+            AreaDaVaga areaDaVagaSalvo = this.areaDaVagaRepository.save(areaDaVaga);
+            vagaDb.setAreaDaVaga(areaDaVagaSalvo);
+            this.vagaRepository.save(vagaDb);
+        } catch (Exception e) {
+            throw new DataIntegrityException("Não foi possível editar a área da vaga, verifique os dados informados!");
+        }
+        return areaDaVaga;
+    }
+
+	public AreaDaVaga buscarAreaDaVaga_Vaga(Long vagaId) {
+        Vaga vaga = this.buscarPorId(vagaId);
+        return vaga.getAreaDaVaga();
+    }
+	
 }
