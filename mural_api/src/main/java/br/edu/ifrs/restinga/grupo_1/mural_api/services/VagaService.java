@@ -1,7 +1,8 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.services;
 
 
-
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
+import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.VagaRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
-import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
-import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.VagaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
