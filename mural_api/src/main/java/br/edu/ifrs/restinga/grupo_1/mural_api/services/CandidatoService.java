@@ -131,14 +131,19 @@ public class CandidatoService {
     @Transactional
     public Portfolio editarPortfolio(Portfolio portfolio, Long id, Long candidatoId) {
         Candidato candidatoDb = this.buscarPorId(candidatoId);
+        Portfolio portfolioDb = this.buscarPortfolioPorId(id);
         try {
-            Portfolio portfolioSalvo = this.portfolioRepository.save(portfolio);
+            portfolioDb.setConhecimentos(portfolio.getConhecimentos());
+            portfolioDb.setEscolaridade(portfolio.getEscolaridade());
+            portfolioDb.setHabilidades(portfolio.getHabilidades());
+            portfolioDb.setAreasDeInteresse(portfolio.getAreasDeInteresse());
+            Portfolio portfolioSalvo = this.portfolioRepository.save(portfolioDb);
             candidatoDb.setPortfolio(portfolioSalvo);
             this.candidatoRepository.save(candidatoDb);
+            return portfolioSalvo;
         } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível cadastar portfólio, verifique os dados informados!");
         }
-        return portfolio;
     }
 
     public Portfolio buscarPortfolioCandidato(Long candidatoId) {
