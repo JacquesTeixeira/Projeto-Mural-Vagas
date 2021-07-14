@@ -99,7 +99,7 @@ public class VagaService {
 
 	}
 	
-	public AreaDaVaga buscarAreaDaVaga(Long id) {
+	public AreaDaVaga buscarIdAreaDaVaga(Long id) {
         try {
             return this.areaDaVagaRepository.findById(id).orElseThrow(() -> new ObjectNotFound("Não existe área de vaga com o id informado"));
         } catch (NoSuchElementException e) {
@@ -133,9 +133,21 @@ public class VagaService {
         return areaDaVaga;
     }
 
-	public AreaDaVaga buscarAreaDaVaga_Vaga(Long vagaId) {
+	public AreaDaVaga buscarAreasDaVaga_Vaga(Long vagaId) {
         Vaga vaga = this.buscarPorId(vagaId);
         return vaga.getAreaDaVaga();
     }
+	
+	/*
+	
+	148 - Não existe função apartir do get que realize o procedimento de remover a área da vaga
+	149 - A mesma situação para o delete a partir do repositório
+	
+	public void excluirAreaDaVaga(Long vagaId, Long areaDaVagaId) {
+		Vaga vagaDb = this.buscarPorId(vagaId);
+		vagaDb.getAreaDaVaga().remove(areaDaVagaId);
+		AreaDaVaga areaVaga = this.areaDaVagaRepository.delete();
+		this.vagaRepository.save(vagaDb);	
+	} */
 	
 }

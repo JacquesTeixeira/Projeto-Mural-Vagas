@@ -84,7 +84,15 @@ public class VagaController {
     
     @RequestMapping(value = "/{vagaId}/areadasvagas", method = RequestMethod.GET)
     public ResponseEntity<AreaDaVaga> findAreaDaVaga(@PathVariable Long vagaId) {
-        return ResponseEntity.ok().body(this.vagaService.buscarAreaDaVaga_Vaga(vagaId));
+        return ResponseEntity.ok().body(this.vagaService.buscarAreasDaVaga_Vaga(vagaId));
     }
+    
+    /*
+    @RequestMapping(value = "/{vagaId}/areadasvagas/{areaDaVagaId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> destroyAreaDaVaga(@PathVariable Long areaDaVagaId, @PathVariable Long vagaId) {
+	    this.vagaService.excluir(areaDaVagaId);
+	    return ResponseEntity.noContent().build();
+
+    } */
     
 }
