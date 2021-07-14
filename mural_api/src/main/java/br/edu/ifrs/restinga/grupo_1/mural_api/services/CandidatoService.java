@@ -73,7 +73,7 @@ public class CandidatoService {
         try {
             candidato = this.candidatoRepository.save(candidato);
             this.enderecoRepository.save(candidato.getEndereco());
-            this.emailService.confirmacaoCadastro(candidato);
+            //this.emailService.confirmacaoCadastro(candidato);
         } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível cadastrar, verifique os dados informados!");
         }

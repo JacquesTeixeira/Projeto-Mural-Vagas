@@ -26,7 +26,7 @@ public class Portfolio {
     @CollectionTable
     private Set<String> conhecimentos = new HashSet<>();
 
-    @OneToMany
+    @ManyToMany
     private List<AreaDaVaga> areasDeInteresse = new ArrayList<>();
 }
 

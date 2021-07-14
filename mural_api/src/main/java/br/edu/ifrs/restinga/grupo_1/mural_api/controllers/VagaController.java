@@ -22,7 +22,6 @@ public class VagaController {
     public ResponseEntity<List<Vaga>> all() {
         List<Vaga> vagas = this.vagaService.buscarTodas();
         return ResponseEntity.ok().body(vagas);
-
     }
 
     @RequestMapping(value="/paginado", method=RequestMethod.GET)
@@ -64,7 +63,33 @@ public class VagaController {
 	    return ResponseEntity.noContent().build();
 
     }
-	
-	
-
+//
+//    @RequestMapping(value = "/{vagaId}/areadasvagas", method = RequestMethod.POST)
+//    public ResponseEntity<Void> createAreaDaVaga(@RequestBody AreaDaVaga areadavaga, @PathVariable Long vagaId) {
+//        AreaDaVaga obj = this.vagaService.cadastrarAreaDaVaga(areadavaga, vagaId);
+//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+//                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+//        return ResponseEntity.created(uri).build();
+//    }
+//
+//    @RequestMapping(value = "/{vagaId}/areadasvagas/{id}", method = RequestMethod.PUT)
+//    public ResponseEntity<Void> updateAreaDaVaga(@RequestBody AreaDaVaga areadavaga,
+//                @PathVariable Long id, @PathVariable Long vagaId) {
+//        this.vagaService.editarAreaDaVaga(areadavaga, id, vagaId);
+//        return ResponseEntity.noContent().build();
+//    }
+//
+//    @RequestMapping(value = "/{vagaId}/areadasvagas", method = RequestMethod.GET)
+//    public ResponseEntity<AreaDaVaga> findAreaDaVaga(@PathVariable Long vagaId) {
+//        return ResponseEntity.ok().body(this.vagaService.buscarAreasDaVaga_Vaga(vagaId));
+//    }
+//
+//    /*
+//    @RequestMapping(value = "/{vagaId}/areadasvagas/{areaDaVagaId}", method = RequestMethod.DELETE)
+//    public ResponseEntity<Void> destroyAreaDaVaga(@PathVariable Long areaDaVagaId, @PathVariable Long vagaId) {
+//	    this.vagaService.excluir(areaDaVagaId);
+//	    return ResponseEntity.noContent().build();
+//
+//    } */
+    
 }

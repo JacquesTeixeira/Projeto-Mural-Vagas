@@ -3,6 +3,8 @@ package br.edu.ifrs.restinga.grupo_1.mural_api.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,8 +23,8 @@ public class Vaga {
     private String salario;
     private String beneficios;
 
-    @ManyToOne
-    private AreaDaVaga areaDaVaga;
+    @ManyToMany
+    private List<AreaDaVaga> areasDaVaga = new ArrayList<>();
 
     @ManyToOne
     private Administrador administrador;
