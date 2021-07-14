@@ -1,7 +1,8 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.services;
 
-
-
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
+import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.AreaDaVagaRepository;
+import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.VagaRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
-import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
-import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.VagaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,19 +18,20 @@ import java.util.NoSuchElementException;
 
 @Service
 public class VagaService {
-	
+
 	@Autowired
 	private VagaRepository vagaRepository;
-	
+
+	@Autowired
+    private AreaDaVagaRepository areaDaVagaRepository;
+
 	public List<Vaga> buscarTodas() {
 		List<Vaga> vagas = this.vagaRepository.findAll();
 		if(vagas.isEmpty()) {
 			throw new ObjectNotFound("Base de dados vazia!");
 		}
 		return vagas;
-
 	}
-
 
     public Vaga buscarPorId(Long id) {
 		try {
@@ -40,10 +39,8 @@ public class VagaService {
 		} catch (NoSuchElementException e) {
 			throw new ObjectNotFound("Não existe vaga com o id informado!");
 		}
-
 	}
 
-	@Transactional
 	public Vaga cadastrar(Vaga vaga) {
 		try {
 			vaga = this.vagaRepository.save(vaga);
@@ -51,7 +48,6 @@ public class VagaService {
 			throw new DataIntegrityException("Não foi possível cadastrar, verifique os dados informados!");
 		}
 		return vaga;
-
 	}
 
 	@Transactional
@@ -60,7 +56,7 @@ public class VagaService {
 			Vaga vagaDb = this.buscarPorId(id);
 			vagaDb.setTitulo(vaga.getTitulo());
 			vagaDb.setDescricao(vaga.getDescricao());
-			//vagaDb.setArea(vaga.getArea()); TODO alterar houve mudanda na entidade
+			vagaDb.setAreasDaVaga(vaga.getAreasDaVaga());
 			vagaDb.setEmpresa(vaga.getEmpresa());
 			vagaDb.setRequisitos(vaga.getRequisitos());
 			vagaDb.setDesejavel(vaga.getDesejavel());
@@ -81,7 +77,6 @@ public class VagaService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir a vaga!");
 		}
-
 	}
 
 	public Page<Vaga> buscarPaginado(Integer pagina, Integer linhasPorPagina, String ordem, String direcao) {
@@ -93,6 +88,4 @@ public class VagaService {
 		return vagas;
 
 	}
-
-
 }

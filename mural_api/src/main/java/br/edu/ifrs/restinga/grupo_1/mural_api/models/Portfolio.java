@@ -1,8 +1,6 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,7 +26,7 @@ public class Portfolio {
     @CollectionTable
     private Set<String> conhecimentos = new HashSet<>();
 
-    @OneToMany
+    @ManyToMany
     private List<AreaDaVaga> areasDeInteresse = new ArrayList<>();
 }
 
