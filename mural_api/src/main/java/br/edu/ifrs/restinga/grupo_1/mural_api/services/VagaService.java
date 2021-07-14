@@ -11,7 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.AreaDaVaga;
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
+import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.AreaDaVagaRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.VagaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,9 @@ public class VagaService {
 	
 	@Autowired
 	private VagaRepository vagaRepository;
+	
+	@Autowired
+    private AreaDaVagaRepository areaDaVagaRepository;
 	
 	public List<Vaga> buscarTodas() {
 		List<Vaga> vagas = this.vagaRepository.findAll();
@@ -93,6 +98,56 @@ public class VagaService {
 		return vagas;
 
 	}
+	
+	public AreaDaVaga buscarIdAreaDaVaga(Long id) {
+        try {
+            return this.areaDaVagaRepository.findById(id).orElseThrow(() -> new ObjectNotFound("Não existe área de vaga com o id informado"));
+        } catch (NoSuchElementException e) {
+            throw new ObjectNotFound("Não existe área de vaga com o id informado");
+        }
+    }
 
+	@Transactional
+    public AreaDaVaga cadastrarAreaDaVaga(AreaDaVaga areaDaVaga, Long vagaId) {
+        Vaga vagaDb = this.buscarPorId(vagaId);
+        try {
+            AreaDaVaga areaDaVagaSalvo = this.areaDaVagaRepository.save(areaDaVaga);
+            vagaDb.setAreaDaVaga(areaDaVagaSalvo);
+            this.vagaRepository.save(vagaDb);
+        } catch (Exception e) {
+            throw new DataIntegrityException("Não foi possível cadastar a área da vaga, verifique os dados informados!");
+        }
+        return areaDaVaga;
+    }
+	
+	@Transactional
+    public AreaDaVaga editarAreaDaVaga(AreaDaVaga areaDaVaga, Long id, Long vagaId) {
+        Vaga vagaDb = this.buscarPorId(vagaId);
+        try {
+            AreaDaVaga areaDaVagaSalvo = this.areaDaVagaRepository.save(areaDaVaga);
+            vagaDb.setAreaDaVaga(areaDaVagaSalvo);
+            this.vagaRepository.save(vagaDb);
+        } catch (Exception e) {
+            throw new DataIntegrityException("Não foi possível editar a área da vaga, verifique os dados informados!");
+        }
+        return areaDaVaga;
+    }
 
+	public AreaDaVaga buscarAreasDaVaga_Vaga(Long vagaId) {
+        Vaga vaga = this.buscarPorId(vagaId);
+        return vaga.getAreaDaVaga();
+    }
+	
+	/*
+	
+	148 - Não existe função apartir do get que realize o procedimento de remover a área da vaga
+	149 - A mesma situação para o delete a partir do repositório
+	
+	public void excluirAreaDaVaga(Long vagaId, Long areaDaVagaId) {
+		Vaga vagaDb = this.buscarPorId(vagaId);
+		vagaDb.getAreaDaVaga().remove(areaDaVagaId);
+		AreaDaVaga areaVaga = this.areaDaVagaRepository.delete();
+		this.vagaRepository.save(vagaDb);	
+	} */
+	
 }
