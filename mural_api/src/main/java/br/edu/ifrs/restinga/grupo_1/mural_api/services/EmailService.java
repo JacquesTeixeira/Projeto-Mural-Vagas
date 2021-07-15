@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class EmailService extends EmailServiceImpl{
+public class EmailService extends EmailServiceImpl {
 
     @Autowired
     private MailSender mailSender;
@@ -18,7 +18,8 @@ public class EmailService extends EmailServiceImpl{
     @Override
     public void enviarEmail(SimpleMailMessage msg) {
         log.info("Enviando email...");
-        this.mailSender.send(msg);
+        //this.mailSender.send(msg);
+        log.info(msg + "!");
         log.info("Email enviado");
     }
 

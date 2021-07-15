@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.services;
 
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.AreaDaVaga;
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Candidato;
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Portfolio;
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
@@ -73,7 +74,7 @@ public class CandidatoService {
         try {
             candidato = this.candidatoRepository.save(candidato);
             this.enderecoRepository.save(candidato.getEndereco());
-            //this.emailService.confirmacaoCadastro(candidato);
+            this.emailService.confirmacaoCadastro(candidato);
         } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível cadastrar, verifique os dados informados!");
         }
@@ -180,5 +181,9 @@ public class CandidatoService {
         candidatoDb.getVagas().remove(vagaDb);
         this.candidatoRepository.save(candidatoDb);
         return candidatoDb;
+    }
+
+    public List<Candidato> buscarCandidatosPorAreaDaVaga(List<AreaDaVaga> areaDaVagas) {
+        return this.candidatoRepository.findByPortfolio_AreasDeInteresseIn(areaDaVagas);
     }
 }
