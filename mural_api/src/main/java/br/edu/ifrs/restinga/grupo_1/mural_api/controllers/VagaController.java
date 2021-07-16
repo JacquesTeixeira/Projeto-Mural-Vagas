@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -63,33 +64,20 @@ public class VagaController {
         return ResponseEntity.noContent().build();
 
     }
-//
-//    @RequestMapping(value = "/{vagaId}/areadasvagas", method = RequestMethod.POST)
-//    public ResponseEntity<Void> createAreaDaVaga(@RequestBody AreaDaVaga areadavaga, @PathVariable Long vagaId) {
-//        AreaDaVaga obj = this.vagaService.cadastrarAreaDaVaga(areadavaga, vagaId);
-//        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}").buildAndExpand(obj.getId()).toUri();
-//        return ResponseEntity.created(uri).build();
-//    }
-//
-//    @RequestMapping(value = "/{vagaId}/areadasvagas/{id}", method = RequestMethod.PUT)
-//    public ResponseEntity<Void> updateAreaDaVaga(@RequestBody AreaDaVaga areadavaga,
-//                @PathVariable Long id, @PathVariable Long vagaId) {
-//        this.vagaService.editarAreaDaVaga(areadavaga, id, vagaId);
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//    @RequestMapping(value = "/{vagaId}/areadasvagas", method = RequestMethod.GET)
-//    public ResponseEntity<AreaDaVaga> findAreaDaVaga(@PathVariable Long vagaId) {
-//        return ResponseEntity.ok().body(this.vagaService.buscarAreasDaVaga_Vaga(vagaId));
-//    }
-//
-//    /*
-//    @RequestMapping(value = "/{vagaId}/areadasvagas/{areaDaVagaId}", method = RequestMethod.DELETE)
-//    public ResponseEntity<Void> destroyAreaDaVaga(@PathVariable Long areaDaVagaId, @PathVariable Long vagaId) {
-//	    this.vagaService.excluir(areaDaVagaId);
-//	    return ResponseEntity.noContent().build();
-//
-//    } */
 
+    @RequestMapping(value = "/pesquisar/titulo/{titulo}", method = RequestMethod.GET)
+    public ResponseEntity<List<Vaga>> getVagaPorTitulo(@PathVariable("titulo") String titulo) {
+        return ResponseEntity.ok().body(this.vagaService.getVagasPorTitulo(titulo));
+    }
+
+    @RequestMapping(value = "/pesquisar/requisito/{requisito}", method = RequestMethod.GET)
+    public ResponseEntity<List<Vaga>> getVagaPorRequisitos(@PathVariable("requisito") String requisito) {
+        return ResponseEntity.ok().body(this.vagaService.getVagasPorRequisitos(requisito));
+    }
+
+    @RequestMapping(value = "/pesquisar/faixa_salarial/{menor}/{maior}", method = RequestMethod.GET)
+    public ResponseEntity<Collection<Vaga>> getVagaPorFaixaSalarial(@PathVariable("menor") double menor,
+                                                                    @PathVariable("maior") double maior) {
+        return ResponseEntity.ok().body(this.vagaService.getVagasPorFaixaSalarial(menor, maior));
+    }
 }

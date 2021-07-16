@@ -59,4 +59,12 @@ public class AreaVagaService {
             throw new DataIntegrityException("Não é possível excluir a área!");
         }
     }
+
+    public List<AreaDaVaga> buscarAreasPorNomeDaArea(String area) {
+        List<AreaDaVaga> areas = this.areaDaVagaRepository.findByNomeAreaLike(area);
+        if (areas.isEmpty()) {
+            throw new ObjectNotFound("Nenhuma área de vaga corresponde a sua pesquisa!!");
+        }
+        return areas;
+    }
 }

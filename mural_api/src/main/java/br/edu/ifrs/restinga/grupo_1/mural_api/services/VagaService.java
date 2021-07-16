@@ -119,4 +119,28 @@ public class VagaService {
             this.emailService.notificarAtualizacaoVaga(c, vaga);
         }
     }
+
+    public List<Vaga> getVagasPorTitulo(String titulo) {
+        List<Vaga> vagas = this.vagaRepository.findByTituloLike(titulo);
+        if (vagas.isEmpty()) {
+            throw new ObjectNotFound("Nenhuma vaga corresponde a sua pesquisa!!");
+        }
+        return vagas;
+    }
+
+    public List<Vaga> getVagasPorRequisitos(String requisitos) {
+        List<Vaga> vagas = this.vagaRepository.findByRequisitosLike(requisitos);
+        if (vagas.isEmpty()) {
+            throw new ObjectNotFound("Nenhuma vaga corresponde a sua pesquisa!!");
+        }
+        return vagas;
+    }
+
+    public List<Vaga> getVagasPorFaixaSalarial(double menor, double maior) {
+        List<Vaga> vagas = this.vagaRepository.findBySalarioBetween(menor, maior);
+        if (vagas.isEmpty()) {
+            throw new ObjectNotFound("Nenhuma vaga corresponde a sua pesquisa!!");
+        }
+        return vagas;
+    }
 }

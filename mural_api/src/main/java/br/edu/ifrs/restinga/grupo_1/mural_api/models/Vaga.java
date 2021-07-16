@@ -20,7 +20,7 @@ public class Vaga {
     private String requisitos;
     private String desejavel;
     private String diferenciais;
-    private String salario;
+    private Double salario;
     private String beneficios;
 
     @ManyToMany
