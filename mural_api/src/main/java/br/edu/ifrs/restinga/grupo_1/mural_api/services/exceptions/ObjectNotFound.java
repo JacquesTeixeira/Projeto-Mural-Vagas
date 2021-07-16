@@ -8,11 +8,12 @@ import java.io.Serializable;
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ObjectNotFound extends RuntimeException implements Serializable {
     private static final long serialVersionUID = 1L;
+
     public ObjectNotFound(String message) {
         super(message);
     }
 
     public ObjectNotFound(String message, Throwable cause) {
-        super(message,cause);
+        super(message, cause);
     }
 }

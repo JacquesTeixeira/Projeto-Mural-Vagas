@@ -26,11 +26,11 @@ public class StatusController {
 
     @GetMapping
     public String status() throws UnknownHostException {
-        return "V1 - API MUral de Vagas rodando " + Instant.now() + " Servidor [" + InetAddress.getLocalHost() +"]";
+        return "V1 - API MUral de Vagas rodando " + Instant.now() + " Servidor [" + InetAddress.getLocalHost() + "]";
     }
 
     @RequestMapping(path = "/notificar", method = RequestMethod.GET)
-    public ResponseEntity<Void> sendMail(){
+    public ResponseEntity<Void> sendMail() {
         Candidato candidato = this.candidatoService.buscarPorId(3L);
         return ResponseEntity.ok().build();
     }

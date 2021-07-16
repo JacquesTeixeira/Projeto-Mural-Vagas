@@ -29,7 +29,7 @@ public class EmailService extends EmailServiceImpl {
     }
 
     @Override
-    public void notificacaoVagaAtualizada(Vaga vaga) {
+    public void notificacaoVagaAtualizada(Candidato candidato, Vaga vaga) {
 
     }
 

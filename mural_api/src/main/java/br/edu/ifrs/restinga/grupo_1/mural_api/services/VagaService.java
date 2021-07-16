@@ -74,6 +74,8 @@ public class VagaService {
             vagaDb.setDiferenciais(vaga.getDiferenciais());
             vagaDb.setSalario(vaga.getSalario());
             vagaDb.setBeneficios(vaga.getBeneficios());
+            this.vagaRepository.save(vagaDb);
+            this.notificarCandidatosAtualizacaoVaga(vagaDb);
             return vagaDb;
         } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível atualizar, verifique os dados informados!");
@@ -99,16 +101,22 @@ public class VagaService {
     }
 
     private void notificaCandidatoNovaVaga(Vaga vaga) {
-        for (Candidato c : this.getCandidatosParaNotificar(vaga)) {
+        for (Candidato c : this.getCandidatosParaNotificarNovaVaga(vaga)) {
             this.emailService.notificarNovaVaga(c, vaga);
         }
     }
 
-    private List<Candidato> getCandidatosParaNotificar(Vaga vaga) {
+    private List<Candidato> getCandidatosParaNotificarNovaVaga(Vaga vaga) {
         List<AreaDaVaga> areasDaVaga = new ArrayList<>();
         for (AreaDaVaga a : vaga.getAreasDaVaga()) {
             areasDaVaga.add(this.areaVagaService.buscarPorId(a.getId()));
         }
         return this.candidatoService.buscarCandidatosPorAreaDaVaga(areasDaVaga);
+    }
+
+    private void notificarCandidatosAtualizacaoVaga(Vaga vaga) {
+        for (Candidato c : this.candidatoService.buscarCandidatosPorVaga(vaga)) {
+            this.emailService.notificarAtualizacaoVaga(c, vaga);
+        }
     }
 }

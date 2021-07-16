@@ -12,7 +12,7 @@ import java.nio.file.StandardCopyOption;
 public class ImagemUploadUtil {
 
     public static void salvarImagem(String uploadDir, String fileName,
-                                MultipartFile multipartFile) throws IOException {
+                                    MultipartFile multipartFile) throws IOException {
         Path uploadPath = Paths.get(uploadDir);
 
         if (!Files.exists(uploadPath)) {

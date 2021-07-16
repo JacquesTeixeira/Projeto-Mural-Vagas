@@ -8,7 +8,8 @@ public class Forbidden extends RuntimeException {
     public Forbidden(String message) {
         super(message);
     }
-        public Forbidden(String message, Throwable cause) {
-            super(message,cause);
-        }
+
+    public Forbidden(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

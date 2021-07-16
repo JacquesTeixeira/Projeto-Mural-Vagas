@@ -7,7 +7,10 @@ import org.springframework.mail.SimpleMailMessage;
 public interface EmailServiceInterface {
 
     void enviarEmail(SimpleMailMessage msg);
+
     void notificacaConfirmarCadastro(Candidato candidato);
-    void notificacaoVagaAtualizada(Vaga vaga);
+
+    void notificacaoVagaAtualizada(Candidato candidato, Vaga vaga);
+
     void notificacaoVagaNova(Candidato candidato, Vaga vaga);
 }

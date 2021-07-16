@@ -69,8 +69,7 @@ public class AdministradorService {
         this.buscarPorId(id);
         try {
             this.administradorRepository.deleteById(id);
-        }
-        catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
         }
     }

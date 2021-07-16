@@ -27,8 +27,8 @@ public class SwaggerSettings {
         return new ApiInfoBuilder().title("API MURAL DE VAGAS IFRS - RESTINGA")
                 .description(
                         "API Mural de vagas\n" +
-                        "Trabalho disciplina DEVII 2021\n" +
-                        "GRUPO1: Adriano, Guilherme, Jacques, Tiago e Vitor. ")
+                                "Trabalho disciplina DEVII 2021\n" +
+                                "GRUPO1: Adriano, Guilherme, Jacques, Tiago e Vitor. ")
                 .version("1.0.0")
                 .build();
     }

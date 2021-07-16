@@ -2,7 +2,6 @@ package br.edu.ifrs.restinga.grupo_1.mural_api.services;
 
 
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.AreaDaVaga;
-import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.AreaDaVagaRepository;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
@@ -21,7 +20,7 @@ public class AreaVagaService {
 
     public List<AreaDaVaga> buscarTodas() {
         List<AreaDaVaga> areas = this.areaDaVagaRepository.findAll();
-        if(areas.isEmpty()) {
+        if (areas.isEmpty()) {
             throw new ObjectNotFound("Base de dados vazia!");
         }
         return areas;

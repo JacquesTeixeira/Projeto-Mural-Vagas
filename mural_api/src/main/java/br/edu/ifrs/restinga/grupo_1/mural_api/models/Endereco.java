@@ -12,7 +12,7 @@ import javax.persistence.Id;
 public class Endereco {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String logradouro;
     private String cep;

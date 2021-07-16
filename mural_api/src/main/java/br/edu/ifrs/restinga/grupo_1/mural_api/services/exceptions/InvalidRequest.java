@@ -8,11 +8,12 @@ import java.io.Serializable;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class InvalidRequest extends RuntimeException implements Serializable {
     private static final long serialVersionUID = 1L;
+
     public InvalidRequest(String message) {
         super(message);
     }
 
     public InvalidRequest(String message, Throwable cause) {
-        super(message,cause);
+        super(message, cause);
     }
 }
