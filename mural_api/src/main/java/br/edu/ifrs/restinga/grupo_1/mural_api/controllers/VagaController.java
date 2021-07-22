@@ -29,7 +29,7 @@ public class VagaController {
     public ResponseEntity<Page<Vaga>> paginate(
             @RequestParam(value = "pagina", defaultValue = "0") Integer pagina,
             @RequestParam(value = "linhasPorPagina", defaultValue = "24") Integer linhasPorPagina,
-            @RequestParam(value = "ordem", defaultValue = "area") String ordem,
+            @RequestParam(value = "ordem", defaultValue = "titulo") String ordem,
             @RequestParam(value = "direcao", defaultValue = "ASC") String direcao) {
         Page<Vaga> vagas = this.vagaService.buscarPaginado(pagina, linhasPorPagina, ordem, direcao);
         return ResponseEntity.ok().body(vagas);
