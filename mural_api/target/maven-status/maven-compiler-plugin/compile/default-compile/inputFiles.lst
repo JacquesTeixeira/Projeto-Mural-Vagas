@@ -1,6 +1,7 @@
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\controllers\CandidatoController.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\controllers\StatusController.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\controllers\VagaController.java
+C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\services\AreaVagaService.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\services\exceptions\ObjectNotFound.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\settings\SwaggerSettings.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\models\Candidato.java
@@ -24,11 +25,14 @@ C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\sr
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\models\Vaga.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\repositories\CandidatoRepository.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\services\exceptions\DataIntegrityException.java
+C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\repositories\AreaDaVagaRepository.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\models\Usuario.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\repositories\PortfolioRepository.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\controllers\exceptions\StandardError.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\services\CandidatoService.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\services\EmailService.java
+C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\controllers\AreaVagaController.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\controllers\exceptions\ControllerExceptionHandler.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\repositories\VagaRepository.java
+C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\settings\CorsSettings.java
 C:\Users\adria\OneDrive\Área de Trabalho\DEVll\Projeto-Mural-Vagas\mural_api\src\main\java\br\edu\ifrs\restinga\grupo_1\mural_api\repositories\EnderecoRepository.java
