@@ -55,14 +55,12 @@ public class VagaController {
     public ResponseEntity<Void> update(@RequestBody Vaga vaga, @PathVariable Long id) {
         this.vagaService.editar(vaga, id);
         return ResponseEntity.noContent().build();
-
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> destroy(@PathVariable Long id) {
         this.vagaService.excluir(id);
         return ResponseEntity.noContent().build();
-
     }
 
     @RequestMapping(value = "/pesquisar/titulo/{titulo}", method = RequestMethod.GET)
