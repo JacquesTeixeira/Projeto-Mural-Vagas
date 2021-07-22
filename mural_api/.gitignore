@@ -1,9 +1,12 @@
 HELP.md
-!target/*
+.target/*
 .settings/
 .loadpath
 .project
 .classpath
+docker-compose.yml
+.docker
+Dockerfile
 ### ###
 *.properties
 ### ###
