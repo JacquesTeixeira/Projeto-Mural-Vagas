@@ -11,7 +11,7 @@
     <groupId>br.edu.ifrs.restinga.grupo_1</groupId>
     <artifactId>mural_api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>mural_api</name>
     <description>Api mural de vagas, trabalho DEV2 IFRS - Restinga</description>
     <properties>
