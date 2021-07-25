@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface CandidatoRepository extends JpaRepository<Candidato, Long> {
-    List<Candidato> findByPortfolio_AreasDeInteresseIn(Collection<AreaDaVaga> areas);
+    List<Candidato> findByPortfolio_AreasDeInteresse(AreaDaVaga a);
 
     List<Candidato> findByVagas(Vaga vaga);
 }

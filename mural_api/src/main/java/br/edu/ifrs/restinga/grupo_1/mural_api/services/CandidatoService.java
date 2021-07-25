@@ -183,8 +183,8 @@ public class CandidatoService {
         return candidatoDb;
     }
 
-    public List<Candidato> buscarCandidatosPorAreaDaVaga(List<AreaDaVaga> areaDaVagas) {
-        return this.candidatoRepository.findByPortfolio_AreasDeInteresseIn(areaDaVagas);
+    public List<Candidato> buscarCandidatosPorAreaDaVaga(AreaDaVaga areaDaVaga) {
+        return this.candidatoRepository.findByPortfolio_AreasDeInteresse(areaDaVaga);
     }
 
     public List<Candidato> buscarCandidatosPorVaga(Vaga vaga) {

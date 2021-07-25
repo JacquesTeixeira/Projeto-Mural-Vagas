@@ -14,6 +14,5 @@ public class AreaDaVaga {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String codigoArea;
-    private String nomeArea;
+    private String areaDaVaga;
 }

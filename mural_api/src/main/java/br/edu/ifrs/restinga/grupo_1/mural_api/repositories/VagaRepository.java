@@ -8,9 +8,4 @@ import java.util.List;
 
 @Repository
 public interface VagaRepository extends JpaRepository<Vaga, Long> {
-    List<Vaga> findByTituloLike(String titulo);
-
-    List<Vaga> findByRequisitosLike(String requisitos);
-
-    List<Vaga> findBySalarioBetween(double menor, double maior);
-}
+ }
