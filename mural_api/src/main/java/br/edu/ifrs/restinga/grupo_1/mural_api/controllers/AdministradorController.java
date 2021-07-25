@@ -11,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/administradores")
 public class AdministradorController {
@@ -39,7 +41,7 @@ public class AdministradorController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody Administrador administrador) {
+    public ResponseEntity<Void> create(@RequestBody @Valid Administrador administrador) {
         Administrador obj = this.administradorService.cadastrar(administrador);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -47,7 +49,7 @@ public class AdministradorController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Administrador administrador, @PathVariable Long id) {
+    public ResponseEntity<Void> update(@RequestBody @Valid Administrador administrador, @PathVariable Long id) {
         this.administradorService.editar(administrador, id);
         return ResponseEntity.noContent().build();
     }

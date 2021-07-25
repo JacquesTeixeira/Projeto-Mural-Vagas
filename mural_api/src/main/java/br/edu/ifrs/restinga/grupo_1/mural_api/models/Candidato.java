@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.format.annotation.NumberFormat;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,15 +22,17 @@ public class Candidato extends Usuario {
     @JsonProperty("tipo")
     private final String tipo = "candidato";
 
+    @NotEmpty(message="O campo CPF não pode estar vazio!!!")
     private String cpf;
 
     private String imagem;
 
     @ManyToOne
     @JsonIgnore
-    private Portfolio portfolio;
-
+    private Portfolio portfolio;    
+    
     @ManyToOne
+    @NotEmpty(message="O campo endereço não pode ser vazio!!!")
     private Endereco endereco;
 
     @ManyToMany
@@ -35,5 +41,6 @@ public class Candidato extends Usuario {
 
     @ElementCollection
     @CollectionTable
+    @NotEmpty(message="O campo telefone não pode ser vazio!!!")
     private Set<String> telefones = new HashSet<>();
 }
