@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/candidatos")
 public class CandidatoController {
@@ -47,7 +49,7 @@ public class CandidatoController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody Candidato candidato) {
+    public ResponseEntity<Void> create(@RequestBody @Valid Candidato candidato) {
         Candidato obj = this.candidatoService.cadastrar(candidato);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -55,7 +57,7 @@ public class CandidatoController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Candidato candidato, @PathVariable Long id) {
+    public ResponseEntity<Void> update(@RequestBody @Valid Candidato candidato, @PathVariable Long id) {
         this.candidatoService.editar(candidato, id);
         return ResponseEntity.noContent().build();
     }

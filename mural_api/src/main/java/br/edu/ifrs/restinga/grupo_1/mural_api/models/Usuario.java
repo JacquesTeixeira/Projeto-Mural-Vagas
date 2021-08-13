@@ -8,7 +8,8 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
-
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @Entity
@@ -28,8 +29,15 @@ public abstract class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+    
+    @NotEmpty(message = "O campo nome não pode ser vazio!!!")    
     private String nome;
+    
+    @NotEmpty(message = "O campo e-mail não pode ser vazio!!!")
+    @Email(message = "Digite um e-mail válido!!!")
     private String email;
+    
+    @NotEmpty(message = "O campo senha não pode ser vazio!!!")
     private String senha;
 
     @ElementCollection(fetch=FetchType.EAGER)

@@ -11,6 +11,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/areas")
 public class AreaVagaController {
@@ -33,7 +35,7 @@ public class AreaVagaController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody AreaDaVaga area) {
+    public ResponseEntity<Void> create(@RequestBody @Valid AreaDaVaga area) {
         AreaDaVaga obj = this.areaVagaService.cadastrarAreaDaVaga(area);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -43,7 +45,7 @@ public class AreaVagaController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody AreaDaVaga area, @PathVariable Long id) {
+    public ResponseEntity<Void> update(@RequestBody @Valid AreaDaVaga area, @PathVariable Long id) {
         this.areaVagaService.editarAreaDaVaga(area, id);
         return ResponseEntity.noContent().build();
     }

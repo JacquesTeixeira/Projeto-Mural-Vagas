@@ -12,6 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/vagas")
 public class VagaController {
@@ -48,7 +50,7 @@ public class VagaController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> create(@RequestBody Vaga vaga) {
+    public ResponseEntity<Void> create(@RequestBody @Valid Vaga vaga) {
         Vaga obj = this.vagaService.cadastrar(vaga);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -57,7 +59,7 @@ public class VagaController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> update(@RequestBody Vaga vaga, @PathVariable Long id) {
+    public ResponseEntity<Void> update(@RequestBody @Valid Vaga vaga, @PathVariable Long id) {
         this.vagaService.editar(vaga, id);
         return ResponseEntity.noContent().build();
     }
