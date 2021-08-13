@@ -61,7 +61,7 @@ public class AreaVagaService {
     }
 
     public List<AreaDaVaga> buscarAreasPorNomeDaArea(String area) {
-        List<AreaDaVaga> areas = this.areaDaVagaRepository.findByNomeAreaLike(area);
+        List<AreaDaVaga> areas = this.areaDaVagaRepository.findByAreaDaVagaLike(area);
         if (areas.isEmpty()) {
             throw new ObjectNotFound("Nenhuma área de vaga corresponde a sua pesquisa!!");
         }

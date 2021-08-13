@@ -1,13 +1,20 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Data
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vaga {
 
     @Id
@@ -17,16 +24,24 @@ public class Vaga {
     private String descricao;
     private String empresa;
     private String enderecoEmpresa;
-    private String requisitos;
-    private String desejavel;
-    private String diferenciais;
     private Double salario;
-    private String beneficios;
+    private String desejavel;
 
-    @ManyToMany
-    private List<AreaDaVaga> areasDaVaga = new ArrayList<>();
+    @ManyToOne
+    private AreaDaVaga areaDaVaga;
 
     @ManyToOne
     private Administrador administrador;
 
+    @ElementCollection
+    @CollectionTable
+    private Set<String> requisitos = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable
+    private Set<String> diferenciais = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable
+    private Set<String> beneficios = new HashSet<>();
 }

@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,10 @@ public class AdministradorService {
 
     @Autowired
     private AdministradorRepository administradorRepository;
+
+
+    @Autowired
+    private BCryptPasswordEncoder pe;
 
     public List<Administrador> buscarTodos() {
         List<Administrador> administradores = this.administradorRepository.findAll();
@@ -47,6 +52,7 @@ public class AdministradorService {
 
     public Administrador cadastrar(Administrador administrador) {
         try {
+            administrador.setSenha(pe.encode(administrador.getSenha()));
             return this.administradorRepository.save(administrador);
         } catch (Exception e) {
             throw new DataIntegrityException("Não foi possível cadastrar, verifique os dados informados!");
@@ -57,7 +63,7 @@ public class AdministradorService {
         try {
             Administrador administradorDb = this.buscarPorId(id);
             administradorDb.setNome(administrador.getNome());
-            administradorDb.setSenha(administrador.getSenha());
+            //administradorDb.setSenha(administrador.getSenha());
             administradorDb.setEmail(administrador.getEmail());
             return this.administradorRepository.save(administradorDb);
         } catch (Exception e) {

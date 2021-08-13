@@ -1,6 +1,5 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.services;
 
-import br.edu.ifrs.restinga.grupo_1.mural_api.models.AreaDaVaga;
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Candidato;
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Vaga;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.VagaRepository;
@@ -9,13 +8,13 @@ import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -67,7 +66,7 @@ public class VagaService {
             Vaga vagaDb = this.buscarPorId(id);
             vagaDb.setTitulo(vaga.getTitulo());
             vagaDb.setDescricao(vaga.getDescricao());
-            vagaDb.setAreasDaVaga(vaga.getAreasDaVaga());
+            vagaDb.setAreaDaVaga(vaga.getAreaDaVaga());
             vagaDb.setEmpresa(vaga.getEmpresa());
             vagaDb.setRequisitos(vaga.getRequisitos());
             vagaDb.setDesejavel(vaga.getDesejavel());
@@ -91,9 +90,20 @@ public class VagaService {
         }
     }
 
-    public Page<Vaga> buscarPaginado(Integer pagina, Integer linhasPorPagina, String ordem, String direcao) {
+    public Page<Vaga> buscarPaginado(Integer pagina, Integer linhasPorPagina, String ordem,
+                                     String direcao, String titulo, String descricao, String desejavel, Double salario, String empresa) {
+        Vaga vaga = Vaga
+                .builder()
+                .titulo(titulo)
+                .descricao(descricao)
+                .desejavel(desejavel)
+                .salario(salario)
+                .empresa(empresa)
+
+                .build();
         PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordem);
-        Page<Vaga> vagas = this.vagaRepository.findAll(pageRequest);
+
+        Page<Vaga> vagas = this.vagaRepository.findAll(Example.of(vaga), pageRequest);
         if (vagas.isEmpty()) {
             throw new ObjectNotFound("Base de dados vazia!");
         }
@@ -101,17 +111,10 @@ public class VagaService {
     }
 
     private void notificaCandidatoNovaVaga(Vaga vaga) {
-        for (Candidato c : this.getCandidatosParaNotificarNovaVaga(vaga)) {
+        for (Candidato c : this.candidatoService
+                .buscarCandidatosPorAreaDaVaga(vaga.getAreaDaVaga())) {
             this.emailService.notificarNovaVaga(c, vaga);
         }
-    }
-
-    private List<Candidato> getCandidatosParaNotificarNovaVaga(Vaga vaga) {
-        List<AreaDaVaga> areasDaVaga = new ArrayList<>();
-        for (AreaDaVaga a : vaga.getAreasDaVaga()) {
-            areasDaVaga.add(this.areaVagaService.buscarPorId(a.getId()));
-        }
-        return this.candidatoService.buscarCandidatosPorAreaDaVaga(areasDaVaga);
     }
 
     private void notificarCandidatosAtualizacaoVaga(Vaga vaga) {
@@ -119,28 +122,28 @@ public class VagaService {
             this.emailService.notificarAtualizacaoVaga(c, vaga);
         }
     }
-
-    public List<Vaga> getVagasPorTitulo(String titulo) {
-        List<Vaga> vagas = this.vagaRepository.findByTituloLike(titulo);
-        if (vagas.isEmpty()) {
-            throw new ObjectNotFound("Nenhuma vaga corresponde a sua pesquisa!!");
-        }
-        return vagas;
-    }
-
-    public List<Vaga> getVagasPorRequisitos(String requisitos) {
-        List<Vaga> vagas = this.vagaRepository.findByRequisitosLike(requisitos);
-        if (vagas.isEmpty()) {
-            throw new ObjectNotFound("Nenhuma vaga corresponde a sua pesquisa!!");
-        }
-        return vagas;
-    }
-
-    public List<Vaga> getVagasPorFaixaSalarial(double menor, double maior) {
-        List<Vaga> vagas = this.vagaRepository.findBySalarioBetween(menor, maior);
-        if (vagas.isEmpty()) {
-            throw new ObjectNotFound("Nenhuma vaga corresponde a sua pesquisa!!");
-        }
-        return vagas;
-    }
+//
+//    public List<Vaga> getVagasPorTitulo(String titulo) {
+//        List<Vaga> vagas = this.vagaRepository.findByTituloLike(titulo);
+//        if (vagas.isEmpty()) {
+//            throw new ObjectNotFound("Nenhuma vaga corresponde a sua pesquisa!!");
+//        }
+//        return vagas;
+//    }
+//
+//    public List<Vaga> getVagasPorRequisitos(String requisitos) {
+//        List<Vaga> vagas = this.vagaRepository.findByRequisitosLike(requisitos);
+//        if (vagas.isEmpty()) {
+//            throw new ObjectNotFound("Nenhuma vaga corresponde a sua pesquisa!!");
+//        }
+//        return vagas;
+//    }
+//
+//    public List<Vaga> getVagasPorFaixaSalarial(double menor, double maior) {
+//        List<Vaga> vagas = this.vagaRepository.findBySalarioBetween(menor, maior);
+//        if (vagas.isEmpty()) {
+//            throw new ObjectNotFound("Nenhuma vaga corresponde a sua pesquisa!!");
+//        }
+//        return vagas;
+//    }
 }

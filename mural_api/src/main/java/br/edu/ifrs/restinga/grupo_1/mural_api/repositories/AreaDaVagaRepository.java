@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface AreaDaVagaRepository extends JpaRepository<AreaDaVaga, Long> {
-    List<AreaDaVaga> findByNomeAreaLike(String area);
+    List<AreaDaVaga> findByAreaDaVagaLike(String area);
 }

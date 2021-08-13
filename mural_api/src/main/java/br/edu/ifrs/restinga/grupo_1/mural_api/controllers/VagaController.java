@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -29,11 +28,15 @@ public class VagaController {
     public ResponseEntity<Page<Vaga>> paginate(
             @RequestParam(value = "pagina", defaultValue = "0") Integer pagina,
             @RequestParam(value = "linhasPorPagina", defaultValue = "24") Integer linhasPorPagina,
-            @RequestParam(value = "ordem", defaultValue = "area") String ordem,
-            @RequestParam(value = "direcao", defaultValue = "ASC") String direcao) {
-        Page<Vaga> vagas = this.vagaService.buscarPaginado(pagina, linhasPorPagina, ordem, direcao);
+            @RequestParam(value = "ordem", defaultValue = "titulo") String ordem,
+            @RequestParam(value = "direcao", defaultValue = "ASC") String direcao,
+            @RequestParam(value = "titulo", required = false) String titulo,
+            @RequestParam(value = "descricao", required = false) String descricao,
+            @RequestParam(value = "desejavel", required = false) String desejavel,
+            @RequestParam(value = "salario", required = false) Double salario,
+            @RequestParam(value = "empresa", required = false) String empresa) {
+        Page<Vaga> vagas = this.vagaService.buscarPaginado(pagina, linhasPorPagina, ordem, direcao, titulo, descricao, desejavel, salario, empresa);
         return ResponseEntity.ok().body(vagas);
-
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -55,29 +58,11 @@ public class VagaController {
     public ResponseEntity<Void> update(@RequestBody Vaga vaga, @PathVariable Long id) {
         this.vagaService.editar(vaga, id);
         return ResponseEntity.noContent().build();
-
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> destroy(@PathVariable Long id) {
         this.vagaService.excluir(id);
         return ResponseEntity.noContent().build();
-
-    }
-
-    @RequestMapping(value = "/pesquisar/titulo/{titulo}", method = RequestMethod.GET)
-    public ResponseEntity<List<Vaga>> getVagaPorTitulo(@PathVariable("titulo") String titulo) {
-        return ResponseEntity.ok().body(this.vagaService.getVagasPorTitulo(titulo));
-    }
-
-    @RequestMapping(value = "/pesquisar/requisito/{requisito}", method = RequestMethod.GET)
-    public ResponseEntity<List<Vaga>> getVagaPorRequisitos(@PathVariable("requisito") String requisito) {
-        return ResponseEntity.ok().body(this.vagaService.getVagasPorRequisitos(requisito));
-    }
-
-    @RequestMapping(value = "/pesquisar/faixa_salarial/{menor}/{maior}", method = RequestMethod.GET)
-    public ResponseEntity<Collection<Vaga>> getVagaPorFaixaSalarial(@PathVariable("menor") double menor,
-                                                                    @PathVariable("maior") double maior) {
-        return ResponseEntity.ok().body(this.vagaService.getVagasPorFaixaSalarial(menor, maior));
     }
 }
