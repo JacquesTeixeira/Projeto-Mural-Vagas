@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.controllers.exceptions;
 
+import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.AuthorizationException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.InvalidRequest;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
@@ -46,5 +47,12 @@ public class ControllerExceptionHandler {
         StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(),
                 e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+
+        StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }
 }

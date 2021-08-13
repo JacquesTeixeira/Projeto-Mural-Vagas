@@ -5,6 +5,7 @@ import br.edu.ifrs.restinga.grupo_1.mural_api.services.VagaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -18,6 +19,7 @@ public class VagaController {
     @Autowired
     private VagaService vagaService;
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Vaga>> all() {
         List<Vaga> vagas = this.vagaService.buscarTodas();

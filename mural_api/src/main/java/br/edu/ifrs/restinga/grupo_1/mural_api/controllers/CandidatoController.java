@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,12 +23,14 @@ public class CandidatoController {
     @Autowired
     private CandidatoService candidatoService;
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Candidato>> all() {
         List<Candidato> candidatos = this.candidatoService.buscarTodos();
         return ResponseEntity.ok().body(candidatos);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/paginado", method = RequestMethod.GET)
     public ResponseEntity<Page<Candidato>> paginate(
             @RequestParam(value = "pagina", defaultValue = "0") Integer pagina,
@@ -57,6 +60,7 @@ public class CandidatoController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> destroy(@PathVariable Long id) {
         this.candidatoService.excluir(id);

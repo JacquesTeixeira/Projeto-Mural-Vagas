@@ -1,7 +1,10 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.services;
 
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.Administrador;
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.enums.Perfil;
 import br.edu.ifrs.restinga.grupo_1.mural_api.repositories.AdministradorRepository;
+import br.edu.ifrs.restinga.grupo_1.mural_api.security.UserSpringSecurity;
+import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.AuthorizationException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.DataIntegrityException;
 import br.edu.ifrs.restinga.grupo_1.mural_api.services.exceptions.ObjectNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +46,11 @@ public class AdministradorService {
     }
 
     public Administrador buscarPorId(Long id) {
-        try {
+        UserSpringSecurity user = UsuarioService.autenticado();
+        if (user ==null || id != user.getId()) {
+            throw new AuthorizationException("Acesso negado");
+        }
+           try {
             return this.administradorRepository.findById(id).orElseThrow(() -> new ObjectNotFound("Não existe administrador com id informado"));
         } catch (NoSuchElementException e) {
             throw new ObjectNotFound("Não existe administrador com id informado");
@@ -63,7 +70,7 @@ public class AdministradorService {
         try {
             Administrador administradorDb = this.buscarPorId(id);
             administradorDb.setNome(administrador.getNome());
-            //administradorDb.setSenha(administrador.getSenha());
+            administradorDb.setSenha(pe.encode(administrador.getSenha()));
             administradorDb.setEmail(administrador.getEmail());
             return this.administradorRepository.save(administradorDb);
         } catch (Exception e) {

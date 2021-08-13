@@ -1,8 +1,10 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.settings;
 
 import br.edu.ifrs.restinga.grupo_1.mural_api.security.JWTAuthenticationFilter;
+import br.edu.ifrs.restinga.grupo_1.mural_api.security.JWTAuthorizationFilter;
 import br.edu.ifrs.restinga.grupo_1.mural_api.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -26,8 +28,10 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecuritySettings extends WebSecurityConfigurerAdapter {
 
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
+
 
     @Autowired
     private Environment env;
@@ -46,7 +50,7 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS_POST = {
             "/candidatos/**",
-            "/auth/forgot/**"
+            "/auth/forgot/** "
     };
 
     @Override
@@ -59,7 +63,7 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest().authenticated();
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-       // http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
