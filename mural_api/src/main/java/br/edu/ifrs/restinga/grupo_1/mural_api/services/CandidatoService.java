@@ -17,6 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -43,6 +44,9 @@ public class CandidatoService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private BCryptPasswordEncoder pe;
 
     public List<Candidato> buscarTodos() {
         List<Candidato> candidatos = this.candidatoRepository.findAll();
@@ -72,6 +76,7 @@ public class CandidatoService {
     @Transactional
     public Candidato cadastrar(Candidato candidato) {
         try {
+            candidato.setSenha(pe.encode(candidato.getSenha()));
             candidato = this.candidatoRepository.save(candidato);
             this.enderecoRepository.save(candidato.getEndereco());
             this.emailService.confirmacaoCadastro(candidato);

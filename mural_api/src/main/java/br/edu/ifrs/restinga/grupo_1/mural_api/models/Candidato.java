@@ -1,5 +1,6 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.models;
 
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -36,4 +37,8 @@ public class Candidato extends Usuario {
     @ElementCollection
     @CollectionTable
     private Set<String> telefones = new HashSet<>();
+
+    public Candidato(){
+        addPerfil(Perfil.CANDIDATO);
+    }
 }

@@ -1,7 +1,7 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.settings;
 
-import java.util.Arrays;
-
+import br.edu.ifrs.restinga.grupo_1.mural_api.security.JWTAuthenticationFilter;
+import br.edu.ifrs.restinga.grupo_1.mural_api.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +19,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.Arrays;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -27,8 +29,11 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-//    @Autowired
-//    private JWTUtil jwtUtil;
+    @Autowired
+    private Environment env;
+
+    @Autowired
+    private JWTUtil jwtUtil;
 
     private static final String[] PUBLIC_MATCHERS = {
             "/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**"
@@ -53,8 +58,8 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest().authenticated();
-      //  http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
-      //  http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
+        http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+       // http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

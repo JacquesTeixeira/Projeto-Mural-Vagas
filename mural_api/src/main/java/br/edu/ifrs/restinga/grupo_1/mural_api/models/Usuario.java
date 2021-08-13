@@ -1,12 +1,14 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
+import br.edu.ifrs.restinga.grupo_1.mural_api.models.enums.Perfil;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 
 @Data
 @Entity
@@ -29,4 +31,17 @@ public abstract class Usuario {
     private String nome;
     private String email;
     private String senha;
+
+    @ElementCollection(fetch=FetchType.EAGER)
+    @CollectionTable
+    private Set<Integer> perfis = new HashSet<>();
+
+
+    public Set<Perfil> getPerfis() {
+        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil) {
+        perfis.add(perfil.getCod());
+    }
 }
