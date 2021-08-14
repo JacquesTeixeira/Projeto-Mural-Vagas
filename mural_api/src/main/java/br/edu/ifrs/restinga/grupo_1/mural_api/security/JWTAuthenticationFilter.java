@@ -50,16 +50,21 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
 
-          String username = ((UserSpringSecurity) auth.getPrincipal()).getUsername();
-          String token = jwtUtil.generateToken(username);
-         // res.addHeader("Authorization", "Bearer " + token);
-          res.setContentType("application/json");
-          res.setCharacterEncoding("UTF-8");
-          res.getWriter().write( "{\"" +"Authorization"+ "\":\"" + "Bearer " + token+ "\"}");
+        String username = ((UserSpringSecurity) auth.getPrincipal()).getUsername();
+        Long id = ((UserSpringSecurity) auth.getPrincipal()).getId();
+        String token = jwtUtil.generateToken(username, id);
+        // res.addHeader("Authorization", "Bearer " + token);
+        res.setContentType("application/json");
+        res.setCharacterEncoding("UTF-8");
+        res.getWriter().write(
+                "{\"" + "id" + "\":\""  + id + "\", " +
+                        "\"" + "email" + "\":\"" + username + "\" ," +
+                        "\"" + "Authorization" + "\":\"" + "Bearer " + token + "\"" +
+                        "}"
+        );
     }
 
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
-
         @Override
         public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
                 throws IOException, ServletException {
