@@ -32,7 +32,6 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-
     @Autowired
     private Environment env;
 
@@ -40,8 +39,11 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
     private JWTUtil jwtUtil;
 
     private static final String[] PUBLIC_MATCHERS = {
-            "/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**"
-
+            "/**.html",
+            "/v2/api-docs",
+            "/webjars/**",
+            "/configuration/**",
+            "/swagger-resources/**"
     };
 
     private static final String[] PUBLIC_MATCHERS_GET = {
@@ -50,7 +52,7 @@ public class SecuritySettings extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS_POST = {
             "/candidatos/**",
-            "/auth/forgot/** "
+            //"/auth/forgot/** "
     };
 
     @Override

@@ -47,7 +47,7 @@ public class AdministradorService {
 
     public Administrador buscarPorId(Long id) {
         UserSpringSecurity user = UsuarioService.autenticado();
-        if (user ==null || id != user.getId()) {
+        if (user == null || id != user.getId()) {
             throw new AuthorizationException("Acesso negado");
         }
            try {

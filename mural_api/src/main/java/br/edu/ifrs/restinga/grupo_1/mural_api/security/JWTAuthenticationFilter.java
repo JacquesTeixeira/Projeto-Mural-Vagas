@@ -1,6 +1,5 @@
 package br.edu.ifrs.restinga.grupo_1.mural_api.security;
 
-import br.edu.ifrs.restinga.grupo_1.mural_api.models.Usuario;
 import br.edu.ifrs.restinga.grupo_1.mural_api.models.dtos.CredencialDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,7 +52,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
           String username = ((UserSpringSecurity) auth.getPrincipal()).getUsername();
           String token = jwtUtil.generateToken(username);
-          res.addHeader("Authorization", "Bearer " + token);
+         // res.addHeader("Authorization", "Bearer " + token);
+          res.setContentType("application/json");
+          res.setCharacterEncoding("UTF-8");
+          res.getWriter().write( "{\"" +"Authorization"+ "\":\"" + "Bearer " + token+ "\"}");
     }
 
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {

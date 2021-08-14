@@ -21,7 +21,7 @@ public class VagaController {
     @Autowired
     private VagaService vagaService;
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+   // @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Vaga>> all() {
         List<Vaga> vagas = this.vagaService.buscarTodas();

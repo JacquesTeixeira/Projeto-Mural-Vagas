@@ -35,7 +35,6 @@ public class Vaga {
     @NotEmpty(message="O campo endereço da empresa não pode ser vazio!!!")
     private String enderecoEmpresa;
     
-    @NotEmpty(message="O campo salário não pode ser vazio!!!")
     private Double salario;
     
     @NotEmpty(message="O campo salário desejável não pode ser vazio!!!")
