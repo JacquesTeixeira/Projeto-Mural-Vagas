@@ -44,7 +44,7 @@ public class AdministradorController {
         return ResponseEntity.ok().body(this.administradorService.buscarPorId(id));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    //@PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Void> create(@RequestBody @Valid Administrador administrador) {
         Administrador obj = this.administradorService.cadastrar(administrador);

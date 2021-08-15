@@ -31,6 +31,5 @@ public class Endereco {
     @NotEmpty(message="O campo estado não pode ser vazio!!!")
     private String estado;
     
-    @NotEmpty(message="O campo número não pode ser vazio!!!")
     private Integer numero;
 }

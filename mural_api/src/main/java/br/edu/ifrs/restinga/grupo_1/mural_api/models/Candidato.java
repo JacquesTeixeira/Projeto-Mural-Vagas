@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
-
-import org.springframework.format.annotation.NumberFormat;
+import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,7 +33,6 @@ public class Candidato extends Usuario {
     private Portfolio portfolio;    
     
     @ManyToOne
-    @NotEmpty(message="O campo endereço não pode ser vazio!!!")
     private Endereco endereco;
 
     @ManyToMany

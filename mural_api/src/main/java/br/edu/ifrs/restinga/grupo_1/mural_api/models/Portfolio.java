@@ -33,7 +33,6 @@ public class Portfolio {
     private Set<String> conhecimentos = new HashSet<>();
 
     @ManyToMany
-    @NotEmpty(message="O campo área de interesse não pode estar vazio!!!")
     private List<AreaDaVaga> areasDeInteresse = new ArrayList<>();
 }
 
